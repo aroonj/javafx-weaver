@@ -40,13 +40,22 @@
 	<properties>
 		<character.encoding>UTF-8</character.encoding>
 		<java.level>20</java.level>
-		<maven.compiler.target>20</maven.compiler.target>
-		<maven.compiler.source>20</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
 		<project.build.sourceEncoding>${character.encoding}</project.build.sourceEncoding>
 		<slf4j.version>2.0.7</slf4j.version>
-		<spring-framework.version>6.0.11</spring-framework.version>
-		<javafx.version>20.0.1</javafx.version>
-		<spring-boot.version>3.1.1</spring-boot.version>
+		<spring-framework.version>6.0.12</spring-framework.version>
+		<javafx.version>21</javafx.version>
+		<spring-boot.version>3.1.4</spring-boot.version>
+		<mockito.version>5.5.0</mockito.version>
+		<junit-jupiter.version>5.10.0</junit-jupiter.version>
+		<org.assertj.version>3.24.2</org.assertj.version>
+		<net.bytebuddy.version>1.14.8</net.bytebuddy.version>
+
+		<maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+		<maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
+		<maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
+
 	</properties>
 
 	<modules>
@@ -79,7 +88,7 @@
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-context</artifactId>
 				<version>${spring-framework.version}</version>
-				<!--				<scope>provided</scope>-->
+
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -102,7 +111,7 @@
 			<dependency>
 				<groupId>org.junit.jupiter</groupId>
 				<artifactId>junit-jupiter</artifactId>
-				<version>5.9.3</version>
+				<version>${junit-jupiter.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -110,7 +119,7 @@
 			<dependency>
 				<groupId>org.assertj</groupId>
 				<artifactId>assertj-core</artifactId>
-				<version>3.24.2</version>
+				<version>${org.assertj.version}</version>
 				<scope>test</scope>
 			</dependency>
 
@@ -118,9 +127,17 @@
 			<dependency>
 				<groupId>org.mockito</groupId>
 				<artifactId>mockito-core</artifactId>
-				<version>5.4.0</version>
+				<version>${mockito.version}</version>
 				<scope>test</scope>
 			</dependency>
+
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>${net.bytebuddy.version}</version>
+				<scope>test</scope>
+			</dependency>
+
 
 		</dependencies>
 	</dependencyManagement>
@@ -131,16 +148,32 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
 					<configuration>
 						<encoding>${project.build.sourceEncoding}</encoding>
 					</configuration>
 				</plugin>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>${maven-javadoc-plugin.version}</version>
 					<configuration>
 						<source>${java.level}</source>
 					</configuration>
 				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+				</plugin>
+
 			</plugins>
 		</pluginManagement>
 

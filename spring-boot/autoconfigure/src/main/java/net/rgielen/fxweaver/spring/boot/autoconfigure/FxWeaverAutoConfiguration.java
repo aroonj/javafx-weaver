@@ -21,34 +21,28 @@ import org.springframework.context.annotation.Scope;
  * @author Rene Gielen
  */
 @Configuration
-@ConditionalOnClass({
-        Node.class,
-        FXMLLoader.class,
-        SpringFxWeaver.class
-})
+@ConditionalOnClass({ Node.class, FXMLLoader.class, SpringFxWeaver.class })
 public class FxWeaverAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean(FxWeaver.class)
-    public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
-        return new SpringFxWeaver(applicationContext);
-    }
+	@Bean
+	@ConditionalOnMissingBean(FxWeaver.class)
+	FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
+		return new SpringFxWeaver(applicationContext);
+	}
 
-    @Bean
-    @ConditionalOnMissingBean(InjectionPointLazyFxControllerAndViewResolver.class)
-    public InjectionPointLazyFxControllerAndViewResolver injectionPointLazyFxControllerAndViewResolver(
-            FxWeaver fxWeaver) {
-        return new InjectionPointLazyFxControllerAndViewResolver(fxWeaver);
-    }
+	@Bean
+	@ConditionalOnMissingBean(InjectionPointLazyFxControllerAndViewResolver.class)
+	InjectionPointLazyFxControllerAndViewResolver injectionPointLazyFxControllerAndViewResolver(FxWeaver fxWeaver) {
+		return new InjectionPointLazyFxControllerAndViewResolver(fxWeaver);
+	}
 
-    @Bean
-    @ConditionalOnMissingBean(FxControllerAndView.class)
-    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    public <C, V extends Node> FxControllerAndView<C, V> fxControllerAndView (
-            InjectionPointLazyFxControllerAndViewResolver injectionPointLazyFxControllerAndViewResolver,
-            InjectionPoint injectionPoint) {
-        return injectionPointLazyFxControllerAndViewResolver.resolve(injectionPoint);
-    }
-
+	@Bean
+	@ConditionalOnMissingBean(FxControllerAndView.class)
+	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+	<C, V extends Node> FxControllerAndView<C, V> fxControllerAndView(
+			InjectionPointLazyFxControllerAndViewResolver injectionPointLazyFxControllerAndViewResolver,
+			InjectionPoint injectionPoint) {
+		return injectionPointLazyFxControllerAndViewResolver.resolve(injectionPoint);
+	}
 
 }
